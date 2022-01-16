@@ -1,0 +1,88 @@
+name:                zamazingo
+version:             0.0.0.0
+github:              "telostat/zamazingo"
+license:             BSD3
+author:              "Vehbi Sinan Tunalioglu"
+maintainer:          "vst@vsthost.com"
+copyright:           "Copyright (c) 2021 Telostat Pte Ltd"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+description:         Please see the README on GitHub at <https://github.com/telostat/zamazingo#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- aeson
+- megaparsec
+- mtl
+- profunctors
+- template-haskell
+- text
+- time
+
+library:
+  source-dirs: src
+  ghc-options:
+  - -Wall
+  default-extensions:
+  ## Begin: Haskell 2021 Extensions List
+  - BangPatterns
+  - BinaryLiterals
+  - ConstrainedClassMethods
+  - ConstraintKinds
+  - DeriveDataTypeable
+  - DeriveFoldable
+  - DeriveFunctor
+  - DeriveGeneric
+  - DeriveLift
+  - DeriveTraversable
+  - EmptyCase
+  - EmptyDataDeriving
+  - ExistentialQuantification
+  - ExplicitForAll
+  - FlexibleContexts
+  - FlexibleInstances
+  - GADTSyntax
+  - GeneralisedNewtypeDeriving
+  - HexFloatLiterals
+  - ImportQualifiedPost
+  - InstanceSigs
+  - KindSignatures
+  - MultiParamTypeClasses
+  - NamedFieldPuns
+  - NamedWildCards
+  - NumericUnderscores
+  - PolyKinds
+  - PostfixOperators
+  - RankNTypes
+  - ScopedTypeVariables
+  - StandaloneDeriving
+  - StandaloneKindSignatures
+  - TupleSections
+  - TypeApplications
+  - TypeOperators
+  - TypeSynonymInstances
+  ## End: Haskell 2021 Extensions List
+  - OverloadedStrings
+
+tests:
+  zamazingo-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - zamazingo
+
+  zamazingo-doctest:
+    main:           doctest.hs
+    source-dirs:    .
+    ghc-options:
+    - -threaded
+    dependencies:
+    - zamazingo
+    - doctest
