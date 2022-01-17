@@ -27,6 +27,7 @@ library
   exposed-modules:
       Zamazingo
       Zamazingo.Network
+      Zamazingo.Network.Internal.Host
       Zamazingo.Network.Internal.Hostname
       Zamazingo.Network.Internal.Ip4
       Zamazingo.Network.Internal.Port

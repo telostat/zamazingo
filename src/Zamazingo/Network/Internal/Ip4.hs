@@ -8,6 +8,7 @@ import qualified Data.Aeson                        as Aeson
 import           Data.Text                         (Text, pack, unpack)
 import           Data.Void                         (Void)
 import           Data.Word                         (Word8)
+import qualified Language.Haskell.TH.Syntax        as TH.Syntax
 import qualified Text.Megaparsec                   as MP
 import qualified Text.Megaparsec.Char              as MPC
 import           Text.Printf                       (printf)
@@ -30,7 +31,7 @@ import           Zamazingo.Text.Internal.TextCodec
 newtype Ip4 = Ip4
   { ip4blocks :: (Word8, Word8, Word8, Word8)
   }
-  deriving (Bounded, Eq, Ord)
+  deriving (Bounded, Eq, Ord, TH.Syntax.Lift)
 
 
 -- | 'Show' instance for 'Ip4'.
