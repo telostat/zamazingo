@@ -1,16 +1,11 @@
 -- | Internal module for non-empty text data definitions and related
 -- functionality.
 
-{-# LANGUAGE TemplateHaskell #-}
-
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
-{-# HLINT ignore "Unused LANGUAGE pragma" #-}
-
 module Zamazingo.Text.Internal.NonEmptyText where
 
 import           Control.Monad.Except              (MonadError(throwError))
 import qualified Data.Aeson                        as Aeson
-import           Data.Text                         (Text, unpack)
+import           Data.Text                         (Text)
 import qualified Language.Haskell.TH.Syntax        as TH
 import           Zamazingo.Text.Internal.TextCodec
                  ( TextCodec
@@ -45,12 +40,14 @@ import           Zamazingo.Text.Internal.TextCodec
 --
 -- You can use the template-haskell constructor:
 --
--- >>> $$(nonEmptyTextTH "zamazingo")
+-- >>> :set -XTemplateHaskell
+-- >>> import qualified Zamazingo as Z
+-- >>> $$(Z.decodeTextTH "zamazingo") :: NonEmptyText
 -- "zamazingo"
 --
 -- This will cause compile time error if the text is empty:
 --
--- >>> $$(nonEmptyTextTH "")
+-- >>> $$(Z.decodeTextTH "") :: NonEmptyText
 -- ...
 -- ... Can not create non-empty text value with empty text parameter
 -- ...
@@ -90,19 +87,9 @@ instance Aeson.FromJSON NonEmptyText where
 
 -- | 'Aeson.ToJSON' instance for 'NonEmptyText'.
 --
--- >>> Aeson.encode $$(nonEmptyTextTH "zamazingo")
+-- >>> :set -XTemplateHaskell
+-- >>> import qualified Zamazingo as Z
+-- >>> Aeson.encode ($$(Z.decodeTextTH "zamazingo") :: NonEmptyText)
 -- "\"zamazingo\""
 instance Aeson.ToJSON NonEmptyText where
   toJSON = jsonEncoderFromTextEncoder
-
-
--- | Constructs a 'NonEmptyText' value with compile-time checking using Template Haskell.
---
--- >>> $$(nonEmptyTextTH "zamazingo")
--- "zamazingo"
--- >>> $$(nonEmptyTextTH "")
--- ...
--- ...Can not create non-empty text value with empty text parameter
--- ...
-nonEmptyTextTH :: Text -> TH.Q (TH.TExp NonEmptyText)
-nonEmptyTextTH = either (fail . unpack) (fmap TH.TExp . TH.lift) . (decodeText :: Text -> Either Text NonEmptyText)

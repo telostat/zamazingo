@@ -1,18 +1,13 @@
 -- | Internal module for network hostname definition and related functionality.
 
-{-# LANGUAGE TemplateHaskell #-}
-
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
-{-# HLINT ignore "Unused LANGUAGE pragma" #-}
-
 module Zamazingo.Network.Internal.Hostname where
 
 import           Control.Monad.Except              (MonadError(throwError))
 import qualified Data.Aeson                        as Aeson
 import qualified Data.List
-import           Data.Text                         (Text, intercalate, pack, unpack)
+import           Data.Text                         (Text, intercalate, pack)
 import           Data.Void                         (Void)
-import qualified Language.Haskell.TH.Syntax        as TH
+import qualified Language.Haskell.TH.Syntax        as TH.Syntax
 import qualified Text.Megaparsec                   as MP
 import qualified Text.Megaparsec.Char              as MPC
 import           Zamazingo.Text.Internal.TextCodec
@@ -42,12 +37,15 @@ import           Zamazingo.Text.Internal.TextCodec
 -- "localhost"
 -- >>> :type localhost
 -- localhost :: Hostname
--- >>> $$(hostnameTH "localhost")
+--
+-- >>> :set -XTemplateHaskell
+-- >>> import qualified Zamazingo as Z
+-- >>> $$(Z.decodeTextTH "localhost") :: Hostname
 -- "localhost"
--- >>> $$(hostnameTH "zamazingo.localhost")
+-- >>> $$(Z.decodeTextTH "zamazingo.localhost") :: Hostname
 -- "zamazingo.localhost"
 newtype Hostname = MkHostname Text
-  deriving (Eq, Ord, TH.Lift)
+  deriving (Eq, Ord, TH.Syntax.Lift)
 
 
 -- | 'Show' instance for 'Hostname'.
@@ -139,15 +137,3 @@ hostnameParser = do
 -- Nothing
 hostnameLabelParser :: MP.Parsec Void Text Text
 hostnameLabelParser = pack . Data.List.intercalate "-" <$> MP.sepBy1 (MP.some . MP.oneOf $ ['a'..'z'] <> ['A'..'Z'] <> ['0'..'9']) (MPC.char '-')
-
-
--- | Constructs a 'Hostname' value with compile-time checking using Template Haskell.
---
--- >>> $$(hostnameTH "zamazingo")
--- "zamazingo"
--- >>> $$(hostnameTH "-zamazingo")
--- ...
--- ...Not a valid hostname: -zamazingo
--- ...
-hostnameTH :: Text -> TH.Q (TH.TExp Hostname)
-hostnameTH = either (fail . unpack) (fmap TH.TExp . TH.lift) . (decodeText :: Text -> Either Text Hostname)
