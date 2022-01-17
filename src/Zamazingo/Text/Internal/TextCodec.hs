@@ -1,11 +1,18 @@
+{-# LANGUAGE TemplateHaskell #-}
+
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
+{-# HLINT ignore "Unused LANGUAGE pragma" #-}
+
 -- | Internal module for text decoding and encoding definitions.
 
 module Zamazingo.Text.Internal.TextCodec where
 
-import           Control.Monad.Except (MonadError)
-import qualified Data.Aeson           as Aeson
-import qualified Data.Aeson.Types     as Aeson.Types
-import           Data.Text            (Text, pack, unpack)
+import           Control.Monad.Except       (MonadError)
+import qualified Data.Aeson                 as Aeson
+import qualified Data.Aeson.Types           as Aeson.Types
+import           Data.Text                  (Text, pack, unpack)
+import qualified Language.Haskell.TH        as TH
+import qualified Language.Haskell.TH.Syntax as TH.Syntax
 
 
 -- | Typeclass that implies both 'TextDecoder' and 'TextEncoder' constraints.
@@ -65,3 +72,16 @@ jsonEncoderFromTextEncoder
   => a            -- ^ Value to encode as a JSON.
   -> Aeson.Value  -- ^ JSON value encoded from 'a'.
 jsonEncoderFromTextEncoder = Aeson.String . encodeText
+
+
+-- | Constructs a decodable value with compile-time checking using Template Haskell.
+--
+-- This technique is borrowed from refined library.
+--
+-- >>> :set -XTemplateHaskell
+-- >>> $$(decodeTextTH "zamazingo") :: String
+-- "zamazingo"
+-- >>> $$(decodeTextTH "zamazingo") :: Text
+-- "zamazingo"
+decodeTextTH :: forall a. (TextDecoder a, TH.Syntax.Lift a) => Text -> TH.Q (TH.TExp a)
+decodeTextTH = fmap TH.Syntax.TExp . either (fail . unpack) TH.Syntax.lift . (decodeText :: Text -> Either Text a)

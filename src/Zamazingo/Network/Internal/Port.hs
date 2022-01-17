@@ -2,11 +2,13 @@
 
 module Zamazingo.Network.Internal.Port where
 
-import           Control.Monad.Except (MonadError(throwError))
-import qualified Data.Aeson           as Aeson
-import           Data.Text            (Text, unpack)
-import           Data.Word            (Word16)
-import           Zamazingo.Text       (tshow)
+import           Control.Monad.Except       (MonadError(throwError))
+import qualified Data.Aeson                 as Aeson
+import           Data.Text                  (Text, pack, unpack)
+import           Data.Word                  (Word16)
+import qualified Language.Haskell.TH.Syntax as TH.Syntax
+import           Text.Read                  (readMaybe)
+import           Zamazingo.Text             (TextCodec, TextDecoder(decodeText), TextEncoder(encodeText), tshow)
 
 
 -- | Type encoding of bounded network ports.
@@ -18,7 +20,7 @@ import           Zamazingo.Text       (tshow)
 newtype Port = MkPort
   { unPort :: Word16
   }
-  deriving (Eq, Ord)
+  deriving (Eq, Ord, TH.Syntax.Lift)
 
 
 -- | 'Show' instance for 'Port'
@@ -40,6 +42,36 @@ instance Show Port where
 instance Bounded Port where
   minBound = MkPort 1
   maxBound = MkPort maxBound
+
+
+-- | 'TextCodec' instance for 'Port'.
+instance TextCodec Port
+
+
+-- | 'TextDecoder' instance for 'Port'.
+--
+-- >>> decodeText "0" :: Either Text Port
+-- Left "Ports are defined over the range of [1, 65535], but given: 0"
+-- >>> decodeText "1" :: Either Text Port
+-- Right 1
+-- >>> decodeText "65535" :: Either Text Port
+-- Right 65535
+-- >>> decodeText "65536" :: Either Text Port
+-- Left "Ports are defined over the range of [1, 65535], but given: 65536"
+instance TextDecoder Port where
+  decodeText t = case readMaybe (unpack t) of
+    Nothing -> throwError "Can not read port value from textual value"
+    Just sp -> mkPort @_ @Integer sp
+
+
+-- | 'TextEncoder' instance for 'Port'
+--
+-- >>> encodeText (minBound :: Port)
+-- "1"
+-- >>> encodeText (maxBound :: Port)
+-- "65535"
+instance TextEncoder Port where
+  encodeText = pack . show
 
 
 -- | 'Aeson.FromJSON' instance for 'Port'.
