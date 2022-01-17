@@ -39,6 +39,7 @@ library
       Zamazingo.Text.Internal.Utils
       Zamazingo.Time
       Zamazingo.Time.Internal.IO
+      Zamazingo.Time.Internal.Utils
   other-modules:
       Paths_zamazingo
   hs-source-dirs:

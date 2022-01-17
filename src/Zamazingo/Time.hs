@@ -4,6 +4,9 @@ module Zamazingo.Time
   ( -- * Convenience for 'IO'
     module Zamazingo.Time.Internal.IO
 
+    -- * Utility Definitions
+  , module Zamazingo.Time.Internal.Utils
+
     -- * Working with Aeson
     --
     -- | This section provides some guidance to the forgetful (eg. the original author
@@ -110,3 +113,4 @@ module Zamazingo.Time
   ) where
 
 import Zamazingo.Time.Internal.IO
+import Zamazingo.Time.Internal.Utils
