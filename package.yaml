@@ -15,6 +15,7 @@ description:         Please see the README on GitHub at <https://github.com/telo
 dependencies:
 - base >= 4.7 && < 5
 - aeson
+- bytestring
 - megaparsec
 - modern-uri
 - mtl
