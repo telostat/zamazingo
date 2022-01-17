@@ -6,7 +6,7 @@ module Zamazingo.Text.Internal.NonEmptyText where
 import           Control.Monad.Except              (MonadError(throwError))
 import qualified Data.Aeson                        as Aeson
 import           Data.Text                         (Text)
-import qualified Language.Haskell.TH.Syntax        as TH
+import qualified Language.Haskell.TH.Syntax        as TH.Syntax
 import           Zamazingo.Text.Internal.TextCodec
                  ( TextCodec
                  , TextDecoder(..)
@@ -33,11 +33,6 @@ import           Zamazingo.Text.Internal.TextCodec
 -- >>> fmap encodeText (decodeText zamazingo :: Either Text NonEmptyText) == Right zamazingo
 -- True
 --
--- There is a 'Semigroup' instance:
---
--- >>> zamazingo <> zamazingo
--- "zamazingozamazingo"
---
 -- You can use the template-haskell constructor:
 --
 -- >>> :set -XTemplateHaskell
@@ -51,8 +46,15 @@ import           Zamazingo.Text.Internal.TextCodec
 -- ...
 -- ... Can not create non-empty text value with empty text parameter
 -- ...
+--
+-- There is a 'Semigroup' instance:
+--
+-- >>> let hebele = $$(Z.decodeTextTH "hebele") :: NonEmptyText
+-- >>> let hubele = $$(Z.decodeTextTH "hubele") :: NonEmptyText
+-- >>> hebele <> hubele
+-- "hebelehubele"
 newtype NonEmptyText = MkNonEmptyText Text
-  deriving (Eq, Ord, Semigroup, TH.Lift)
+  deriving (Eq, Ord, Semigroup, TH.Syntax.Lift)
 
 
 -- | 'Show' instance for 'NonEmptyText'.
