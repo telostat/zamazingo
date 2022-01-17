@@ -16,6 +16,7 @@ dependencies:
 - base >= 4.7 && < 5
 - aeson
 - megaparsec
+- modern-uri
 - mtl
 - profunctors
 - template-haskell

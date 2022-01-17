@@ -29,6 +29,7 @@ library
       Zamazingo.Network
       Zamazingo.Network.Internal.Host
       Zamazingo.Network.Internal.Hostname
+      Zamazingo.Network.Internal.HttpUrl
       Zamazingo.Network.Internal.Ip4
       Zamazingo.Network.Internal.Port
       Zamazingo.Text
@@ -85,6 +86,7 @@ library
       aeson
     , base >=4.7 && <5
     , megaparsec
+    , modern-uri
     , mtl
     , profunctors
     , template-haskell
@@ -105,6 +107,7 @@ test-suite zamazingo-doctest
     , base >=4.7 && <5
     , doctest
     , megaparsec
+    , modern-uri
     , mtl
     , profunctors
     , template-haskell
@@ -125,6 +128,7 @@ test-suite zamazingo-test
       aeson
     , base >=4.7 && <5
     , megaparsec
+    , modern-uri
     , mtl
     , profunctors
     , template-haskell
