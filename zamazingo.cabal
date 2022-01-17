@@ -33,6 +33,7 @@ library
       Zamazingo.Network.Internal.Port
       Zamazingo.Text
       Zamazingo.Text.Internal.NonEmptyText
+      Zamazingo.Text.Internal.Secret
       Zamazingo.Text.Internal.TextCodec
       Zamazingo.Text.Internal.Utils
       Zamazingo.Time
