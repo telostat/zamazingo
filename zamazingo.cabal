@@ -38,6 +38,7 @@ library
       Zamazingo.Text.Internal.TextCodec
       Zamazingo.Text.Internal.Utils
       Zamazingo.Time
+      Zamazingo.Time.Internal.DateRange
       Zamazingo.Time.Internal.IO
       Zamazingo.Time.Internal.Utils
   other-modules:
