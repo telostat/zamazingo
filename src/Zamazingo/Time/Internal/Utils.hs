@@ -1,3 +1,6 @@
+-- | This internal module provides utility definitions to work with date/time
+-- values.
+
 module Zamazingo.Time.Internal.Utils where
 
 import           Data.Text (Text, pack, unpack)

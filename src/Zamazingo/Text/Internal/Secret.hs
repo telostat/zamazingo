@@ -75,7 +75,7 @@ instance Aeson.FromJSON Secret where
   parseJSON = jsonDecoderFromTextDecoder "Secret"
 
 
--- | 'Aeson.ToJSON' instance for 'NonEmptyText'.
+-- | 'Aeson.ToJSON' instance for 'Secret'.
 --
 -- >>> :set -XTemplateHaskell
 -- >>> import qualified Zamazingo as Z

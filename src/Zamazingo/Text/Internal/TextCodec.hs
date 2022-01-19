@@ -109,7 +109,7 @@ instance TextEncoder String where
 jsonDecoderFromTextDecoder
   :: TextDecoder a
   => String                -- ^ Type name.
-  -> Aeson.Value           -- ^ JSON value to parse 'a' from.
+  -> Aeson.Value           -- ^ JSON value to parse @a@ from.
   -> Aeson.Types.Parser a  -- ^ JSON parser.
 jsonDecoderFromTextDecoder s = Aeson.withText s (either (fail . unpack) pure . decodeText)
 
@@ -119,7 +119,7 @@ jsonDecoderFromTextDecoder s = Aeson.withText s (either (fail . unpack) pure . d
 jsonEncoderFromTextEncoder
   :: TextEncoder a
   => a            -- ^ Value to encode as a JSON.
-  -> Aeson.Value  -- ^ JSON value encoded from 'a'.
+  -> Aeson.Value  -- ^ JSON value encoded from @a@.
 jsonEncoderFromTextEncoder = Aeson.String . encodeText
 
 
