@@ -16,7 +16,12 @@ dependencies:
 - base >= 4.7 && < 5
 - aeson
 - bytestring
+- deriving-aeson
 - email-validate
+- exceptions
+- file-embed
+- http-client
+- http-conduit
 - megaparsec
 - modern-uri
 - mtl

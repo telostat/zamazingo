@@ -32,6 +32,9 @@ library
       Zamazingo.Network.Internal.HttpUrl
       Zamazingo.Network.Internal.Ip4
       Zamazingo.Network.Internal.Mailing.EmailAddress
+      Zamazingo.Network.Internal.Mailing.EmailRecipientType
+      Zamazingo.Network.Internal.Mailing.Mailess
+      Zamazingo.Network.Internal.Mailing.SimpleSmtpConfig
       Zamazingo.Network.Internal.Port
       Zamazingo.Text
       Zamazingo.Text.Internal.NonEmptyText
@@ -89,7 +92,12 @@ library
       aeson
     , base >=4.7 && <5
     , bytestring
+    , deriving-aeson
     , email-validate
+    , exceptions
+    , file-embed
+    , http-client
+    , http-conduit
     , megaparsec
     , modern-uri
     , mtl
@@ -111,8 +119,13 @@ test-suite zamazingo-doctest
       aeson
     , base >=4.7 && <5
     , bytestring
+    , deriving-aeson
     , doctest
     , email-validate
+    , exceptions
+    , file-embed
+    , http-client
+    , http-conduit
     , megaparsec
     , modern-uri
     , mtl
@@ -135,7 +148,12 @@ test-suite zamazingo-test
       aeson
     , base >=4.7 && <5
     , bytestring
+    , deriving-aeson
     , email-validate
+    , exceptions
+    , file-embed
+    , http-client
+    , http-conduit
     , megaparsec
     , modern-uri
     , mtl
