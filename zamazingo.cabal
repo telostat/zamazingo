@@ -44,6 +44,7 @@ library
       Zamazingo.Time
       Zamazingo.Time.Internal.DateRange
       Zamazingo.Time.Internal.IO
+      Zamazingo.Time.Internal.TimeZoneLabel
       Zamazingo.Time.Internal.Utils
   other-modules:
       Paths_zamazingo
@@ -105,6 +106,7 @@ library
     , template-haskell
     , text
     , time
+    , tzdata
   default-language: Haskell2010
 
 test-suite zamazingo-doctest
@@ -133,6 +135,7 @@ test-suite zamazingo-doctest
     , template-haskell
     , text
     , time
+    , tzdata
     , zamazingo
   default-language: Haskell2010
 
@@ -161,5 +164,6 @@ test-suite zamazingo-test
     , template-haskell
     , text
     , time
+    , tzdata
     , zamazingo
   default-language: Haskell2010

@@ -11,6 +11,9 @@ module Zamazingo.Time
   , DateRange(dateRangeSince, dateRangeUntil)
   , mkDateRange
 
+    -- * Time Zone Labels
+  , TimeZoneLabel(unTimeZoneLabel)
+
     -- * Working with Aeson
     --
     -- | This section provides some guidance to the forgetful (eg. the original author
@@ -116,6 +119,7 @@ module Zamazingo.Time
     -- Right 23:59:59.999999999999
   ) where
 
-import Zamazingo.Time.Internal.DateRange (DateRange(dateRangeSince, dateRangeUntil), mkDateRange)
+import Zamazingo.Time.Internal.DateRange     (DateRange(dateRangeSince, dateRangeUntil), mkDateRange)
 import Zamazingo.Time.Internal.IO
+import Zamazingo.Time.Internal.TimeZoneLabel (TimeZoneLabel(unTimeZoneLabel))
 import Zamazingo.Time.Internal.Utils
