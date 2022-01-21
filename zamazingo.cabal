@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       Zamazingo
+      Zamazingo.Control.Monad
       Zamazingo.Network
       Zamazingo.Network.Internal.Host
       Zamazingo.Network.Internal.Hostname
