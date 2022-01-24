@@ -134,3 +134,59 @@ jsonEncoderFromTextEncoder = Aeson.String . encodeText
 -- "zamazingo"
 decodeTextTH :: forall a. (TextDecoder a, TH.Syntax.Lift a) => Text -> TH.Q (TH.TExp a)
 decodeTextTH = fmap TH.Syntax.TExp . either (fail . unpack) TH.Syntax.lift . (decodeText :: Text -> Either Text a)
+
+
+-- | Type encoding of a pair of 'Text' values.
+type TextPair = (Text, Text)
+
+
+-- | Pairs given key and value as a 'TextPair'.
+--
+-- >>> pairText "key" "value"
+-- ("key","value")
+pairText
+  :: TextEncoder k
+  => TextEncoder v
+  => k
+  -> v
+  -> TextPair
+pairText k v = (encodeText k, encodeText v)
+
+
+-- | Alias to 'pairText'.
+(.=)
+  :: TextEncoder k
+  => TextEncoder v
+  => k
+  -> v
+  -> TextPair
+(.=) = pairText
+
+
+-- | Pairs given key and value as a 'TextPair'.
+--
+-- >>> pairTextWithDefault "default" "key" (Nothing :: Maybe Text)
+-- ("key","default")
+-- >>> pairTextWithDefault "default" "key" (Just "value")
+-- ("key","value")
+pairTextWithDefault
+  :: TextEncoder d
+  => TextEncoder k
+  => TextEncoder v
+  => d
+  -> k
+  -> Maybe v
+  -> TextPair
+pairTextWithDefault d k v = (encodeText k, maybe (encodeText d) encodeText v)
+
+
+-- | Alias to 'pairTextWithDefault'.
+(.=?)
+  :: TextEncoder d
+  => TextEncoder k
+  => TextEncoder v
+  => d
+  -> k
+  -> Maybe v
+  -> TextPair
+(.=?) = pairTextWithDefault
