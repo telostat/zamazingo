@@ -42,7 +42,9 @@ import           Zamazingo.Text.Internal.TextCodec
 -- <REDACTED>
 -- >>> Z.encodeText (hebele <> hubele)
 -- "hebelehubele"
-newtype Secret = MkSecret Text
+newtype Secret = Secret
+  { unSecret :: Text
+  }
   deriving (Eq, Ord, Semigroup, TH.Syntax.Lift)
 
 
@@ -58,11 +60,11 @@ instance TextCodec Secret
 
 
 instance TextDecoder Secret where
-  decodeText = pure . MkSecret
+  decodeText = pure . Secret
 
 
 instance TextEncoder Secret where
-  encodeText (MkSecret x) = x
+  encodeText (Secret x) = x
 
 
 -- | 'Aeson.FromJSON' instance for 'Secret'.
