@@ -20,6 +20,7 @@ dependencies:
 - email-validate
 - exceptions
 - file-embed
+- hashable
 - http-client
 - http-conduit
 - megaparsec
@@ -30,6 +31,7 @@ dependencies:
 - text
 - time
 - tzdata
+- unordered-containers
 
 library:
   source-dirs: src
