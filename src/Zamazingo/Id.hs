@@ -3,6 +3,8 @@
 
 module Zamazingo.Id where
 
+import           Control.Exception   (Exception)
+import           Control.Monad.Catch (MonadThrow(throwM))
 import qualified Data.Aeson          as Aeson
 import qualified Data.HashMap.Strict as HM
 import           Data.Hashable       (Hashable)
@@ -11,7 +13,8 @@ import           Data.Hashable       (Hashable)
 -- | Type encoding for entity identifiers.
 --
 -- This encoding allows us to provide a phantom type for distinguishing between
--- identifiers of varying types and an underlying identifier type.
+-- identifiers of varying value types (@pt@) and an underlying identifier type
+-- (@it@).
 --
 -- As an example, for given data definitions:
 --
@@ -48,7 +51,7 @@ import           Data.Hashable       (Hashable)
 --
 -- >>> Data.Hashable.hash (Id @A 1) == Data.Hashable.hash (Id @B 1)
 -- True
-newtype Id a b = Id { unId :: b }
+newtype Id pt it = Id { unId :: it }
   deriving(Eq, Ord, Hashable, Show)
 
 
@@ -65,7 +68,7 @@ newtype Id a b = Id { unId :: b }
 -- (Aeson.decode @(Id Int Int) "1") :: Maybe (Id Int Int)
 -- >>> :type (Aeson.decode @(Id String Int) "1")
 -- (Aeson.decode @(Id String Int) "1") :: Maybe (Id String Int)
-instance (Aeson.FromJSON b) => Aeson.FromJSON (Id a b) where
+instance (Aeson.FromJSON it) => Aeson.FromJSON (Id pt it) where
   parseJSON = fmap Id . Aeson.parseJSON
 
 
@@ -75,7 +78,7 @@ instance (Aeson.FromJSON b) => Aeson.FromJSON (Id a b) where
 -- "1"
 -- >>> Aeson.encode (Id @String 1)
 -- "1"
-instance (Aeson.ToJSON b) => Aeson.ToJSON (Id a b) where
+instance (Aeson.ToJSON it) => Aeson.ToJSON (Id pt it) where
   toJSON (Id x) = Aeson.toJSON x
 
 
@@ -88,4 +91,40 @@ instance (Aeson.ToJSON b) => Aeson.ToJSON (Id a b) where
 -- >>> let table = HM.fromList (fmap (\x -> (Id @A (aId x), x)) values) :: IdLookup A Int
 -- >>> HM.lookup (Id @A 1) table
 -- Just (A {aId = 1})
-type IdLookup a b = HM.HashMap (Id a b) a
+type IdLookup pt it = HM.HashMap (Id pt it) pt
+
+
+-- | Creates a lookup table from given values using the given key function.
+lookupTableFromValues
+  :: Eq it
+  => Hashable it
+  => (pt -> Id pt it)
+  -> [pt]
+  -> IdLookup pt it
+lookupTableFromValues f = lookupTableFromArbitraryValues f id
+
+
+-- | Creates a lookup table from given arbitrary values using the given key
+-- function and value functions.
+lookupTableFromArbitraryValues
+  :: Eq it
+  => Hashable it
+  => (p -> Id pt it)
+  -> (p -> pt)
+  -> [p]
+  -> IdLookup pt it
+lookupTableFromArbitraryValues fK fV = HM.fromList . fmap ((,) <$> fK <*> fV)
+
+
+-- | Attempts to lookup a given identifier in the given lookup table. If the
+-- lookup fails, throws provided exception.
+lookupIdThrow
+  :: Eq it
+  => Hashable it
+  => Exception e
+  => MonadThrow m
+  => e
+  -> Id pt it
+  -> IdLookup pt it
+  -> m pt
+lookupIdThrow exc ident = maybe (throwM exc) pure . HM.lookup ident
