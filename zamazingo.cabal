@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       Zamazingo
+      Zamazingo.Bool
       Zamazingo.Control.Applicative
       Zamazingo.Control.Monad
       Zamazingo.Id
