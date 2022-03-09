@@ -38,9 +38,9 @@ import           Data.Hashable       (Hashable)
 -- ... because:
 --
 -- >>> :type Id @A 1
--- Id @A 1 :: Num b => Id A b
+-- Id @A 1 :: Num it => Id A it
 -- >>> :type Id @B 1
--- Id @B 1 :: Num b => Id B b
+-- Id @B 1 :: Num it => Id B it
 --
 -- Values, on the otherhand, can be compared:
 --
