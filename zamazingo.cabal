@@ -29,6 +29,7 @@ library
       Zamazingo.Bool
       Zamazingo.Control.Applicative
       Zamazingo.Control.Monad
+      Zamazingo.GroupBy
       Zamazingo.Id
       Zamazingo.Network
       Zamazingo.Network.Internal.Host

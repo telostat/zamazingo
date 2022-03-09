@@ -4,6 +4,7 @@ module Zamazingo
   ( module Zamazingo.Bool
   , module Zamazingo.Control.Applicative
   , module Zamazingo.Control.Monad
+  , module Zamazingo.GroupBy
   , module Zamazingo.Id
   , module Zamazingo.Network
   , module Zamazingo.Text
@@ -13,6 +14,7 @@ module Zamazingo
 import Zamazingo.Bool
 import Zamazingo.Control.Applicative
 import Zamazingo.Control.Monad
+import Zamazingo.GroupBy
 import Zamazingo.Id
 import Zamazingo.Network
 import Zamazingo.Text
