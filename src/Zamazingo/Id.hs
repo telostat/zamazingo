@@ -82,15 +82,33 @@ instance (Aeson.ToJSON it) => Aeson.ToJSON (Id pt it) where
   toJSON (Id x) = Aeson.toJSON x
 
 
+-- | 'Aeson.FromJSONKey' instance for 'Id'.
+instance (Aeson.FromJSON it) => Aeson.FromJSONKey (Id pt it)
+
+
+-- | 'Aeson.ToJSONKey' instance for 'Id'.
+instance (Aeson.ToJSON it) => Aeson.ToJSONKey (Id pt it)
+
+
 -- | Type encoding for a lookup table from entity 'Id's to corresponding entities.
 --
 -- /Note: I think that this is quite dumb./
 --
--- >>> data A = A { aId :: Int } deriving Show
+-- >>> data A = A { aId :: Int } deriving (Show)
 -- >>> let values = [A 1, A 2, A 3]
 -- >>> let table = HM.fromList (fmap (\x -> (Id @A (aId x), x)) values) :: IdLookup A Int
 -- >>> HM.lookup (Id @A 1) table
 -- Just (A {aId = 1})
+--
+-- We can decode/encode from/to JSON, too:
+--
+-- >>> let table2 = HM.fromList [(Id @(Int, Int) 1, (1, 1)), (Id @(Int, Int) 2, (2, 4))] :: IdLookup (Int, Int) Int
+-- >>> Aeson.encode table2
+-- "[[1,[1,1]],[2,[2,4]]]"
+-- >>> Aeson.decode @(IdLookup (Int, Int) Int) (Aeson.encode table2)
+-- Just (fromList [(Id {unId = 1},(1,1)),(Id {unId = 2},(2,4))])
+-- >>> Just table2 == Aeson.decode @(IdLookup (Int, Int) Int) (Aeson.encode table2)
+-- True
 type IdLookup pt it = HM.HashMap (Id pt it) pt
 
 
