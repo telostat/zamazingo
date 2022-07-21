@@ -2,6 +2,19 @@
 ## [Unreleased]
 
 
+<a name="0.0.0.2"></a>
+## [0.0.0.2] - 2022-07-21
+### Chore
+- **dev:** migrate from Stack to Nix
+
+### Feat
+- add commonAesonOptions, drop deriving-aeson dependency
+
+### Pull Requests
+- Merge pull request [#5](https://github.com/telostat/zamazingo/issues/5) from telostat/vst/issue-2
+- Merge pull request [#4](https://github.com/telostat/zamazingo/issues/4) from telostat/vst/issue-3
+
+
 <a name="0.0.0.1"></a>
 ## 0.0.0.1 - 2022-07-21
 ### Chore
@@ -11,6 +24,7 @@
 - **dev:** integrate git-chglog
 - **docs:** fix haddock warnings
 - **doctest:** fix NonEmptyText doctest
+- **release:** 0.0.0.1
 - **test:** fix tests
 
 ### Feat
@@ -43,4 +57,5 @@
 - Merge pull request [#1](https://github.com/telostat/zamazingo/issues/1) from telostat/init
 
 
-[Unreleased]: https://github.com/telostat/zamazingo/compare/0.0.0.1...HEAD
+[Unreleased]: https://github.com/telostat/zamazingo/compare/0.0.0.2...HEAD
+[0.0.0.2]: https://github.com/telostat/zamazingo/compare/0.0.0.1...0.0.0.2
