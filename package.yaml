@@ -1,5 +1,5 @@
 name:                zamazingo
-version:             0.0.0.0
+version:             0.0.0.1
 github:              "telostat/zamazingo"
 license:             BSD3
 author:              "Vehbi Sinan Tunalioglu"
@@ -8,7 +8,7 @@ copyright:           "Copyright (c) 2021 Telostat Pte Ltd"
 
 extra-source-files:
 - README.md
-- ChangeLog.md
+- CHANGELOG.md
 
 description:         Please see the README on GitHub at <https://github.com/telostat/zamazingo#readme>
 
