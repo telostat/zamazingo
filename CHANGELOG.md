@@ -2,10 +2,23 @@
 ## [Unreleased]
 
 
+<a name="0.0.0.3"></a>
+## [0.0.0.3] - 2022-07-21
+### Chore
+- **dev:** add release.sh script
+
+### Fix
+- export Zamazingo.Aeson module defs on Zamazingo module
+
+### Pull Requests
+- Merge pull request [#6](https://github.com/telostat/zamazingo/issues/6) from telostat/vst/export-aeson-module-defs
+
+
 <a name="0.0.0.2"></a>
 ## [0.0.0.2] - 2022-07-21
 ### Chore
 - **dev:** migrate from Stack to Nix
+- **release:** 0.0.0.2
 
 ### Feat
 - add commonAesonOptions, drop deriving-aeson dependency
@@ -57,5 +70,6 @@
 - Merge pull request [#1](https://github.com/telostat/zamazingo/issues/1) from telostat/init
 
 
-[Unreleased]: https://github.com/telostat/zamazingo/compare/0.0.0.2...HEAD
+[Unreleased]: https://github.com/telostat/zamazingo/compare/0.0.0.3...HEAD
+[0.0.0.3]: https://github.com/telostat/zamazingo/compare/0.0.0.2...0.0.0.3
 [0.0.0.2]: https://github.com/telostat/zamazingo/compare/0.0.0.1...0.0.0.2
