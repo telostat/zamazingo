@@ -6,7 +6,9 @@
 
 module Zamazingo.Network.Internal.Mailing.SimpleSmtpConfig where
 
-import qualified Deriving.Aeson.Stock            as DAS
+import qualified Data.Aeson                      as Aeson
+import           GHC.Generics                    (Generic)
+import           Zamazingo.Aeson                 (commonAesonOptions)
 import           Zamazingo.Network.Internal.Host (Host)
 import           Zamazingo.Network.Internal.Port (Port)
 import           Zamazingo.Text                  (Secret)
@@ -20,5 +22,12 @@ data SimpleSmtpConfig = SimpleSmtpConfig
   , simpleSmtpConfigPassword :: !(Maybe Secret)
   , simpleSmtpConfigSecure   :: !(Maybe Bool)
   }
-  deriving (Eq, DAS.Generic, Ord, Show)
-  deriving (DAS.FromJSON, DAS.ToJSON) via DAS.PrefixedSnake "simpleSmtpConfig" SimpleSmtpConfig
+  deriving (Eq, Generic, Ord, Show)
+
+
+instance Aeson.FromJSON SimpleSmtpConfig where
+  parseJSON = Aeson.genericParseJSON $ commonAesonOptions "simpleSmtpConfig"
+
+
+instance Aeson.ToJSON SimpleSmtpConfig where
+  toJSON = Aeson.genericToJSON $ commonAesonOptions "simpleSmtpConfig"
