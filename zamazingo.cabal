@@ -1,0 +1,181 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.4.
+--
+-- see: https://github.com/sol/hpack
+
+name:           zamazingo
+version:        0.0.0.0
+description:    Please see the README on GitHub at <https://github.com/telostat/zamazingo#readme>
+homepage:       https://github.com/telostat/zamazingo#readme
+bug-reports:    https://github.com/telostat/zamazingo/issues
+author:         Vehbi Sinan Tunalioglu
+maintainer:     vst@vsthost.com
+copyright:      Copyright (c) 2021 Telostat Pte Ltd
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/telostat/zamazingo
+
+library
+  exposed-modules:
+      Zamazingo
+      Zamazingo.Aeson
+      Zamazingo.Bool
+      Zamazingo.Control.Applicative
+      Zamazingo.Control.Monad
+      Zamazingo.GroupBy
+      Zamazingo.Id
+      Zamazingo.Network
+      Zamazingo.Network.Internal.Host
+      Zamazingo.Network.Internal.Hostname
+      Zamazingo.Network.Internal.HttpUrl
+      Zamazingo.Network.Internal.Ip4
+      Zamazingo.Network.Internal.Mailing.EmailAddress
+      Zamazingo.Network.Internal.Mailing.EmailRecipientType
+      Zamazingo.Network.Internal.Mailing.Mailess
+      Zamazingo.Network.Internal.Mailing.SimpleSmtpConfig
+      Zamazingo.Network.Internal.Port
+      Zamazingo.Text
+      Zamazingo.Text.Internal.NonEmptyText
+      Zamazingo.Text.Internal.Secret
+      Zamazingo.Text.Internal.TextCodec
+      Zamazingo.Text.Internal.Utils
+      Zamazingo.Time
+      Zamazingo.Time.Internal.DateRange
+      Zamazingo.Time.Internal.IO
+      Zamazingo.Time.Internal.TimeZoneLabel
+      Zamazingo.Time.Internal.Utils
+  other-modules:
+      Paths_zamazingo
+  hs-source-dirs:
+      src
+  default-extensions:
+      BangPatterns
+      BinaryLiterals
+      ConstrainedClassMethods
+      ConstraintKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      EmptyCase
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      FlexibleContexts
+      FlexibleInstances
+      GADTSyntax
+      GeneralisedNewtypeDeriving
+      HexFloatLiterals
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      MultiParamTypeClasses
+      NamedFieldPuns
+      NamedWildCards
+      NumericUnderscores
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeSynonymInstances
+      OverloadedStrings
+  ghc-options: -Wall
+  build-depends:
+      aeson
+    , base >=4.7 && <5
+    , bytestring
+    , deriving-aeson
+    , email-validate
+    , exceptions
+    , file-embed
+    , hashable
+    , http-client
+    , http-conduit
+    , megaparsec
+    , modern-uri
+    , mtl
+    , profunctors
+    , template-haskell
+    , text
+    , time
+    , tzdata
+    , unordered-containers
+  default-language: Haskell2010
+
+test-suite zamazingo-doctest
+  type: exitcode-stdio-1.0
+  main-is: doctest.hs
+  other-modules:
+      Paths_zamazingo
+  hs-source-dirs:
+      ./
+  ghc-options: -threaded
+  build-depends:
+      aeson
+    , base >=4.7 && <5
+    , bytestring
+    , deriving-aeson
+    , doctest
+    , email-validate
+    , exceptions
+    , file-embed
+    , hashable
+    , http-client
+    , http-conduit
+    , megaparsec
+    , modern-uri
+    , mtl
+    , profunctors
+    , template-haskell
+    , text
+    , time
+    , tzdata
+    , unordered-containers
+    , zamazingo
+  default-language: Haskell2010
+
+test-suite zamazingo-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_zamazingo
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      aeson
+    , base >=4.7 && <5
+    , bytestring
+    , deriving-aeson
+    , email-validate
+    , exceptions
+    , file-embed
+    , hashable
+    , http-client
+    , http-conduit
+    , megaparsec
+    , modern-uri
+    , mtl
+    , profunctors
+    , template-haskell
+    , text
+    , time
+    , tzdata
+    , unordered-containers
+    , zamazingo
+  default-language: Haskell2010
