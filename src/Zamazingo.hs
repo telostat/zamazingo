@@ -1,7 +1,8 @@
 -- | A collection of utility/helper definitions but not a prelude.
 
 module Zamazingo
-  ( module Zamazingo.Bool
+  ( module Zamazingo.Aeson
+  , module Zamazingo.Bool
   , module Zamazingo.Control.Applicative
   , module Zamazingo.Control.Monad
   , module Zamazingo.GroupBy
@@ -11,6 +12,7 @@ module Zamazingo
   , module Zamazingo.Time
   ) where
 
+import Zamazingo.Aeson
 import Zamazingo.Bool
 import Zamazingo.Control.Applicative
 import Zamazingo.Control.Monad
