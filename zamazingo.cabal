@@ -99,7 +99,6 @@ library
       aeson
     , base >=4.7 && <5
     , bytestring
-    , deriving-aeson
     , email-validate
     , exceptions
     , file-embed
@@ -129,7 +128,6 @@ test-suite zamazingo-doctest
       aeson
     , base >=4.7 && <5
     , bytestring
-    , deriving-aeson
     , doctest
     , email-validate
     , exceptions
@@ -153,6 +151,7 @@ test-suite zamazingo-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      TestAeson
       Paths_zamazingo
   hs-source-dirs:
       test
@@ -161,7 +160,6 @@ test-suite zamazingo-test
       aeson
     , base >=4.7 && <5
     , bytestring
-    , deriving-aeson
     , email-validate
     , exceptions
     , file-embed
