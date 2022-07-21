@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP             #-}
 {-# LANGUAGE TemplateHaskell #-}
 
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
@@ -132,8 +133,19 @@ jsonEncoderFromTextEncoder = Aeson.String . encodeText
 -- "zamazingo"
 -- >>> $$(decodeTextTH "zamazingo") :: Text
 -- "zamazingo"
-decodeTextTH :: forall a. (TextDecoder a, TH.Syntax.Lift a) => Text -> TH.Q (TH.TExp a)
+#if MIN_VERSION_template_haskell(2,17,0)
+decodeTextTH
+  :: forall a. (TextDecoder a, TH.Syntax.Lift a)
+  => Text
+  -> TH.Code TH.Q a
+decodeTextTH = either (TH.Syntax.liftCode . fail . unpack) TH.Syntax.liftTyped . (decodeText :: Text -> Either Text a)
+#else
+decodeTextTH
+  :: forall a. (TextDecoder a, TH.Syntax.Lift a)
+  => Text
+  -> TH.Q (TH.TExp a)
 decodeTextTH = fmap TH.Syntax.TExp . either (fail . unpack) TH.Syntax.lift . (decodeText :: Text -> Either Text a)
+#endif
 
 
 -- | Type encoding of a pair of 'Text' values.
