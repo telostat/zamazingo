@@ -2,10 +2,23 @@
 ## [Unreleased]
 
 
+<a name="0.0.0.4"></a>
+## [0.0.0.4] - 2022-07-21
+### Chore
+- update README, License and package copyright info
+
+### Fix
+- adopt changes to TemplateHaskell on GHC9
+
+### Pull Requests
+- Merge pull request [#7](https://github.com/telostat/zamazingo/issues/7) from telostat/vst/fix-ghc9-th-issue
+
+
 <a name="0.0.0.3"></a>
 ## [0.0.0.3] - 2022-07-21
 ### Chore
 - **dev:** add release.sh script
+- **release:** 0.0.0.3
 
 ### Fix
 - export Zamazingo.Aeson module defs on Zamazingo module
@@ -70,6 +83,7 @@
 - Merge pull request [#1](https://github.com/telostat/zamazingo/issues/1) from telostat/init
 
 
-[Unreleased]: https://github.com/telostat/zamazingo/compare/0.0.0.3...HEAD
+[Unreleased]: https://github.com/telostat/zamazingo/compare/0.0.0.4...HEAD
+[0.0.0.4]: https://github.com/telostat/zamazingo/compare/0.0.0.3...0.0.0.4
 [0.0.0.3]: https://github.com/telostat/zamazingo/compare/0.0.0.2...0.0.0.3
 [0.0.0.2]: https://github.com/telostat/zamazingo/compare/0.0.0.1...0.0.0.2
