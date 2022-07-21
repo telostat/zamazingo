@@ -1,3 +1,4 @@
+import qualified TestAeson
 
 main :: IO ()
-main = putStrLn "Test suite not yet implemented"
+main = TestAeson.run

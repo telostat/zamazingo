@@ -16,10 +16,11 @@ import qualified Data.Aeson                                            as Aeson
 import qualified Data.ByteString                                       as B
 import qualified Data.List.NonEmpty                                    as NE
 import           Data.Text                                             (Text, unpack)
-import qualified Deriving.Aeson.Stock                                  as DAS
+import           GHC.Generics                                          (Generic)
 import           GHC.Stack                                             (HasCallStack, callStack, prettyCallStack)
 import qualified Network.HTTP.Client.MultipartFormData                 as MP
 import qualified Network.HTTP.Simple                                   as NS
+import           Zamazingo.Aeson                                       (commonAesonOptions)
 import           Zamazingo.Network.Internal.HttpUrl                    (HttpUrl)
 import           Zamazingo.Network.Internal.Mailing.EmailAddress       (EmailAddress)
 import           Zamazingo.Network.Internal.Mailing.EmailRecipientType (EmailRecipientType(..))
@@ -35,8 +36,15 @@ import           Zamazingo.Text                                        (TextEnco
 newtype MailessConfig = MailessConfig
   { mailessConfigBaseUrl :: HttpUrl
   }
-  deriving (Eq, DAS.Generic, Show)
-  deriving (DAS.FromJSON, DAS.ToJSON) via DAS.PrefixedSnake "mailessConfig" MailessConfig
+  deriving (Eq, Generic, Show)
+
+
+instance Aeson.FromJSON MailessConfig where
+  parseJSON = Aeson.genericParseJSON $ commonAesonOptions "mailessConfig"
+
+
+instance Aeson.ToJSON MailessConfig where
+  toJSON = Aeson.genericToJSON $ commonAesonOptions "mailessConfig"
 
 
 -- * Sending Emails
@@ -149,8 +157,15 @@ data MailessMetadata a = MailessMetadata
   , mailessMetadataSubject :: !Text
   , mailessMetadataContext :: !a
   }
-  deriving (Eq, DAS.Generic, Show)
-  deriving (DAS.FromJSON, DAS.ToJSON) via DAS.PrefixedSnake "mailessMetadata" (MailessMetadata a)
+  deriving (Eq, Generic, Show)
+
+
+instance (Aeson.FromJSON a) => Aeson.FromJSON (MailessMetadata a) where
+  parseJSON = Aeson.genericParseJSON $ commonAesonOptions "mailessMetadata"
+
+
+instance (Aeson.ToJSON a) => Aeson.ToJSON (MailessMetadata a) where
+  toJSON = Aeson.genericToJSON $ commonAesonOptions "mailessMetadata"
 
 
 -- | Low-level function to send emails over Mailess.

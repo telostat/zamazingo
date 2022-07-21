@@ -5,7 +5,9 @@
 
 module Zamazingo.Network.Internal.Mailing.EmailRecipientType where
 
-import qualified Deriving.Aeson as DA
+import qualified Data.Aeson      as Aeson
+import           GHC.Generics    (Generic)
+import           Zamazingo.Aeson (commonAesonOptions)
 
 
 -- | Type encoding for email recipient values (to, cc or bcc)
@@ -13,5 +15,13 @@ data EmailRecipientType =
     EmailRecipientTypeTo
   | EmailRecipientTypeCc
   | EmailRecipientTypeBcc
-  deriving (Eq, DA.Generic, Ord, Show)
-  deriving (DA.FromJSON, DA.ToJSON) via DA.CustomJSON '[DA.ConstructorTagModifier (DA.StripPrefix "EmailRecipientType", DA.CamelToSnake)] EmailRecipientType
+  deriving (Eq, Generic, Ord, Show)
+
+
+instance Aeson.FromJSON EmailRecipientType where
+  parseJSON = Aeson.genericParseJSON $ commonAesonOptions "EmailRecipientType"
+
+
+instance Aeson.ToJSON EmailRecipientType where
+  toJSON = Aeson.genericToJSON $ commonAesonOptions "EmailRecipientType"
+
